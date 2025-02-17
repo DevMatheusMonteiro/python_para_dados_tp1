@@ -107,3 +107,38 @@ arquivo = os.path.join(os.getcwd(), "novo_arquivo.json")
 dados = [{"nome": "Matheus", "idade": 25}, {"nome": "Amanda", "idade": 33}, {"nome": "Nicolas", "idade": 1}]
 escrever_json(arquivo, dados)
 print(ler_json(arquivo))
+
+# Exercício 14
+def retornar_cidades(arquivo):
+    with open(arquivo, encoding="utf-8") as arquivo_csv:
+        reader = csv.DictReader(arquivo_csv)
+        cidades = {}
+        for linha in reader:
+            if cidades.get(linha['cidade']):
+                cidades[linha['cidade']].append(linha['nome'])
+            else:
+                cidades[linha['cidade']] = [linha['nome']]
+        return cidades
+arquivo = os.path.join(os.getcwd(), "nome_cidade.csv")
+print(retornar_cidades(arquivo))
+
+# Exercício 15
+def nomes_unicos(arquivo):
+    with open(arquivo, 'r', encoding='utf-8') as arquivo_txt:
+        return set(arquivo_txt.read().splitlines())
+arquivo = os.path.join(os.getcwd(), "nomes.txt")
+print(nomes_unicos(arquivo))
+
+# Exercício 16
+def indice_invertido_palavras(arquivo):
+    with open(arquivo, 'r', encoding='utf-8') as arquivo_txt:
+        dic = {}
+        for num, linha in enumerate(arquivo_txt, 1):
+            for palavra in linha.split():
+                if dic.get(palavra) is not None:
+                    dic[palavra].add(num)
+                else:
+                    dic[palavra] = set([num])
+        return dic
+arquivo = os.path.join(os.getcwd(), "nomes_2.txt")
+print(indice_invertido_palavras(arquivo))
