@@ -1,5 +1,6 @@
 import csv
 import json
+import os
 
 # Exercício 1
 def soma_lista(numeros):
@@ -58,8 +59,51 @@ conj1 = {1, 2, 3, 4, 5, "Matheus"}
 conj2 = {"Matheus", 1, 10, 40}
 print(conjuntos(conj1, conj2))
 
-# Exercicio 8
+# Exercício 8
 def elementos_unicos(lista):
     return list(set(lista))
 lista = [1,5,2,"Matheus", 3,4,5,3,5,5,10,11, "Matheus"]
 print(elementos_unicos(lista))
+
+# Exercício 9
+def testar_subconjunto(conj1, conj2):
+    return conj1.issubset(conj2)
+conj1 = {3, 4, 5}
+conj2 = {1, 2, 3, 4, 5}
+print(testar_subconjunto(conj1, conj2))
+
+# Exercício 10
+def ler_csv(arquivo):
+    with open(arquivo, encoding="utf-8") as arquivo_csv:
+        reader = csv.reader(arquivo_csv)
+        for linha in reader:
+            print(linha)
+arquivo = os.path.join(os.getcwd(), "arquivo_csv.csv")
+ler_csv(arquivo)
+
+# Exercício 11
+def escrever_csv(arquivo, dados):
+    with open(arquivo, "w", newline="", encoding="utf-8") as arquivo_csv:
+        writer = csv.DictWriter(arquivo_csv, fieldnames=dados[0].keys())
+        writer.writeheader()
+        writer.writerows(dados)
+arquivo = os.path.join(os.getcwd(), "novo_arquivo.csv")
+dados = [{"nome": "Matheus", "idade": 25}, {"nome": "Amanda", "idade": 33}, {"nome": "Nicolas", "idade": 1}]
+escrever_csv(arquivo, dados)
+ler_csv(arquivo)
+
+# Exercício 12
+def ler_json(arquivo):
+    with open(arquivo, encoding="utf-8") as arquivo_json:
+        return json.load(arquivo_json)
+arquivo = os.path.join(os.getcwd(), "arquivo_json.json")
+print(ler_json(arquivo))
+
+# Exercício 13
+def escrever_json(arquivo, dados):
+    with open(arquivo, "w", encoding="utf-8") as arquivo_json:
+        json.dump(dados, arquivo_json, indent=4)
+arquivo = os.path.join(os.getcwd(), "novo_arquivo.json")
+dados = [{"nome": "Matheus", "idade": 25}, {"nome": "Amanda", "idade": 33}, {"nome": "Nicolas", "idade": 1}]
+escrever_json(arquivo, dados)
+print(ler_json(arquivo))
